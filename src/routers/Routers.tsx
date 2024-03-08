@@ -18,7 +18,16 @@ function RoutesApp() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<h1>I'm Main page</h1>} />
+        <Route
+          path="/"
+          element={
+            !authState.isAuthenticated ? (
+              <LoginPage />
+            ) : (
+              <Navigate to="/app/home" replace />
+            )
+          }
+        />
         <Route
           path="/login"
           element={
@@ -41,6 +50,7 @@ function RoutesApp() {
         >
           <Route path="home" element={<PageHome />} />
           <Route path="movies" element={<PageMovies />} />
+          <Route path="categories" element={<PageMovies />} />
           <Route path="movie/:movieId" element={<PageMovie />} />
         </Route>
       </Routes>

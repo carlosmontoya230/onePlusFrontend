@@ -46,7 +46,7 @@ function UINavbar() {
                       <span>Peliculas</span>
                     </li>
                   </Link>
-                  <Link to={"movies"}>
+                  <Link to={"categories"}>
                     <li className="p-4 cursor-pointer text-sm flex justify-start items-center gap-2 rounded-xl hover:bg-gray-100 hover:bg-opacity-25">
                       <span>Categorias</span>
                     </li>
