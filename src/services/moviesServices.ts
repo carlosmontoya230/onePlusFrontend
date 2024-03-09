@@ -2,8 +2,15 @@ import axios from "axios";
 import { baseUrl } from "../environments/environments";
 
 const useMoviesServices = () => {
-  const listMovies = async () => {
-    const { data } = await axios.get(`${baseUrl}/movie/list?page=1`);
+  const listMovies = async (type: string) => {
+    const { data } = await axios.get(
+      `${baseUrl}/movie/type/${type}/list?page=1`
+    );
+    return data;
+  };
+
+  const listMoviesByGenres = async (genres: string) => {
+    const { data } = await axios.get(`${baseUrl}/movie/genres/${genres}/list`);
     return data;
   };
 
@@ -17,7 +24,7 @@ const useMoviesServices = () => {
     return data;
   };
 
-  return { listMovies, getMovieDetails, getMovieVideo };
+  return { listMovies, listMoviesByGenres, getMovieDetails, getMovieVideo };
 };
 
 export default useMoviesServices;

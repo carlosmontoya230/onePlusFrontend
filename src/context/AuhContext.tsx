@@ -12,6 +12,7 @@ const AuthContext = React.createContext<{
 });
 
 const token = localStorage.getItem("token");
+const userName = localStorage.getItem("user-name");
 const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [authState, setAuthState] = useState<AuthState>({
     isAuthenticated: false,
@@ -22,7 +23,7 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     if (token) {
       setAuthState({
         isAuthenticated: true,
-        user: "mario",
+        user: userName,
       });
     }
   }, []);

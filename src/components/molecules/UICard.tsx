@@ -17,7 +17,7 @@ const UICard: React.FC<CardProps> = ({
               <img src={img} alt={`img-card-${img}`} width={250} />
             </div>
           )}
-          <UITitle className="pt-6 pb-2" tagTitle="h2">
+          <UITitle className="pt-6 pb-2 text-black" tagTitle="h2">
             {title}
           </UITitle>
           <p className="text-left py-2">{description}</p>
@@ -33,7 +33,7 @@ interface CardProps {
   img?: string;
   className?: string;
   title: string;
-  description: string;
+  description?: string;
 }
 
 export default UICard;

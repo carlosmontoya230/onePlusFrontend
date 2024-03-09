@@ -3,16 +3,17 @@ import useMoviesServices from "../../services/moviesServices";
 import UITitle from "../../components/atoms/UITitle";
 import UICardMovie from "../../components/molecules/UICardMovie";
 import { IMovie } from "../../interfaces/movieInterface";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
-function PageMovies() {
+function PageCategory() {
   const navigate = useNavigate();
   const [movies, setMovies] = useState([]);
   const [alertError, setAlertError] = useState({
     show: false,
     message: "",
   });
-  const { listMovies } = useMoviesServices();
+  const { name, genresId } = useParams();
+  const { listMoviesByGenres } = useMoviesServices();
 
   useEffect(() => {
     getListMovies();
@@ -20,7 +21,7 @@ function PageMovies() {
 
   const getListMovies = async () => {
     try {
-      const resp = await listMovies("now_playing");
+      const resp = await listMoviesByGenres(genresId || "");
       setMovies(resp.results);
     } catch (error: any) {
       setAlertError({
@@ -38,7 +39,7 @@ function PageMovies() {
     <Fragment>
       <section className="w-full py-10 flex flex-col justify-center items-center">
         {alertError?.show && <div>{alertError.message}</div>}
-        <UITitle tagTitle="h2">Peliculas</UITitle>
+        <UITitle tagTitle="h2">Peliculas de {name}</UITitle>
         <div className="py-8 flex justify-center items-center gap-2 flex-wrap">
           {movies?.map((movie: IMovie) => (
             <article key={movie.id} onClick={() => navigateDetails(movie.id)}>
@@ -51,4 +52,4 @@ function PageMovies() {
   );
 }
 
-export default PageMovies;
+export default PageCategory;

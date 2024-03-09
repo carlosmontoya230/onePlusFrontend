@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { AuthContext } from "../../context/AuhContext";
 
 function UINavbar() {
-  const { setAuthState } = useContext(AuthContext);
+  const { authState, setAuthState } = useContext(AuthContext);
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleMenu = () => {
@@ -46,7 +46,7 @@ function UINavbar() {
                       <span>Peliculas</span>
                     </li>
                   </Link>
-                  <Link to={"categories"}>
+                  <Link to={"category/Acción/28"}>
                     <li className="p-4 cursor-pointer text-sm flex justify-start items-center gap-2 rounded-xl hover:bg-gray-100 hover:bg-opacity-25">
                       <span>Categorias</span>
                     </li>
@@ -59,7 +59,7 @@ function UINavbar() {
                 className="flex items-center justify-start gap-2 focus:outline-none"
                 onClick={toggleMenu}
               >
-                <span>Hola, Mario</span>
+                <span>Hola, {authState.user}</span>
                 <UIIcon icon="icon_account_circle" />
               </button>
               {isOpen && (
