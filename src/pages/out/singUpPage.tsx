@@ -1,13 +1,28 @@
 import UICard from "../../components/molecules/UICard";
-import { useContext } from "react";
-import { AuthContext } from "../../context/AuhContext";
 import { Link, useNavigate } from "react-router-dom";
 import { FormProps } from "../../hooks/useForm";
 import UIFormDynamic from "../../components/organisms/UIFormDinamic";
 import useAuthServices from "../../services/authServices";
 
-export default function LoginPage() {
+export default function SignUpPage() {
   const formLogin: FormProps = {
+    name: {
+      type: "text",
+      value: "",
+      label: "Nombre",
+      placeholder: "Escribe tu nombre...",
+      isValid: false,
+      touch: false,
+    },
+    document_number: {
+      type: "number",
+      value: "",
+      label: "Documento de identidad",
+      placeholder: "Escribe tu documento...",
+      isValid: false,
+      touch: false,
+      validators: [{ validation: "number" }],
+    },
     email: {
       type: "email",
       value: "",
@@ -30,18 +45,14 @@ export default function LoginPage() {
       validators: [{ validation: "length", min: 5, max: 15 }],
     },
   };
-  const { login } = useAuthServices();
-  const { setAuthState } = useContext(AuthContext);
+  const { signUp } = useAuthServices();
   const navigate = useNavigate();
 
-  const handleLogin = async (dataForm: any) => {
+  const handleSignUp = async (dataForm: any) => {
     console.log("dataForm: ***", dataForm);
-    const resp = await login(dataForm);
+    const resp = await signUp(dataForm);
     console.log("resp: ***", resp);
-    setAuthState({ isAuthenticated: true, user: resp.name });
-    localStorage.setItem("user-name", resp.name);
-    localStorage.setItem("token", resp.token);
-    navigate("/app/home");
+    navigate("/login");
   };
 
   return (
@@ -50,17 +61,17 @@ export default function LoginPage() {
         <UICard
           className="w-1/5"
           img={"/assets/logo/logo-one.webp"}
-          title={"Inicia tu Sesión"}
-          description={"Inicia sesión y drisfruta del mejor entretenimiento"}
+          title={"Registrate"}
+          description={"Registrate y drisfruta del mejor entretenimiento"}
         >
           <UIFormDynamic
             form={formLogin}
-            buttonText="Iniciar sesion"
-            onSubmit={handleLogin}
+            buttonText="Registrarse"
+            onSubmit={handleSignUp}
           />
           <div className="text-center text-blue-600">
-            <Link to={"/sign-up"}>
-              <span>¿Aún no tienes cuenta?</span> <strong>Registrate</strong>
+            <Link to={"/login"}>
+              <span>¿Ya tienes cuenta?</span> <strong>Inicia sesión</strong>
             </Link>
           </div>
         </UICard>
